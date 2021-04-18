@@ -23,13 +23,13 @@ PREREQUISITO
 
 -> El archivo terraform.tfvars con el siguiente contenido el cual debe de reemplazado por nuevos valores para el despliegue
 
-project_name         = "nombre"
-gcp_credentials_path  = ".json"
-region               = "region"
-zone                 = "zona"
-ssh_username         = "nombre"
-ssh_pub_key_path     = "clave publica"
-ssh_priv_key_path     = "clave privada"
+- project_name         = "nombre"
+- gcp_credentials_path  = ".json"
+- region               = "region"
+- zone                 = "zona"
+- ssh_username         = "nombre"
+- ssh_pub_key_path     = "clave publica"
+- ssh_priv_key_path     = "clave privada"
 
 PASOS DE EJECUCION
 
