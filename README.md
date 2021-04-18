@@ -39,7 +39,7 @@ PASOS DE EJECUCION
 4) sh deploy.sh --> Siendo:
 - La tarea 1: CREAR el cluster.
 - La tarea 2: DESTROY el cluster.
-- La tarea 3: OUTPUT de la instalacion
+- La tarea 3: OUTPUT de la ip de la VM.
 
 4) Despliegue de Job
 Ir a la url http://IP:8080
