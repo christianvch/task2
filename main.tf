@@ -54,7 +54,7 @@ resource "google_compute_instance" "instance_with_ip" {
      "sudo pip3 install docker",
      "sudo pip install pbr",
      "sudo pip install python-jenkins",
-     "git clone https://github.com/christianvch/prueba01.git && cd prueba01",
+     "git clone https://github.com/christianvch/task2.git && cd task2",
      "sudo ansible-playbook install-docker.yml",
      "sudo pip install python-jenkins",
     "sudo ansible-playbook install-jenkins.yml"
