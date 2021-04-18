@@ -19,17 +19,17 @@ PREREQUISITO
 
 - ssh-keygen -t rsa -f ~/.ssh/challenge -C challengeuser
 - chmod 400 challenge
-- ssh -i challenge challengeuser@52.174.274.72
+- ssh -i challenge challengeuser@ip
 
 -> El archivo terraform.tfvars con el siguiente contenido el cual debe de reemplazado por nuevos valores para el despliegue
 
-project_name         = "nombre"\n
-gcp_credentials_path  = ".json"\n
-region               = "region"\n
-zone                 = "zona"\n
-ssh_username         = "nombre"\n
-ssh_pub_key_path     = "clave publica"\n
-ssh_priv_key_path     = "clave privada"\n
+project_name         = "nombre"
+gcp_credentials_path  = ".json"
+region               = "region"
+zone                 = "zona"
+ssh_username         = "nombre"
+ssh_pub_key_path     = "clave publica"
+ssh_priv_key_path     = "clave privada"
 
 PASOS DE EJECUCION
 
