@@ -35,7 +35,8 @@ PASOS DE EJECUCION
 
 1) git clone "repositorio"
 2) cd task2
-3) sh deploy.sh --> Siendo:
+3) Cambio de datos en archivo: terraform.tfvars
+4) sh deploy.sh --> Siendo:
 - La tarea 1: CREAR el cluster.
 - La tarea 2: DESTROY el cluster.
 - La tarea 3: OUTPUT de la instalacion
