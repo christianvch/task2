@@ -1,0 +1,22 @@
+  - name: "Instalando paquetes para docker"
+    yum:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+     - yum-utils
+     - device-mapper-persistent-data
+     - lvm2
+  - name: "Configurando docker-ce repo"
+    get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docker-ce.repo
+      mode: 0644
+  - name: " Instalando docker"
+    yum:
+      name: docker-ce
+      state: present
+  - name: " Habilitando servicio"
+    service:
+      name: docker
+      state: started
+      enabled: yes

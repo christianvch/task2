@@ -1,0 +1,15 @@
+library identifier: 'jenkins-shared-libray@master',
+    retriever: modernSCM([
+      $class: 'GitSCMSource',
+      credentialsId: '',
+      remote: 'https://github.com/christianvch/prueba.git'
+])
+
+node {
+    env.MAVEN_HOME = "${tool 'mvn'}"
+    env.PATH = "${env.MAVEN_HOME}/bin:${env.PATH}"
+    buildJavascriptApp deploy: true, {
+        notify type: "slack", message: "Build succeeded"
+    }
+
+}

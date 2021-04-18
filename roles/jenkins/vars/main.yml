@@ -1,0 +1,16 @@
+    jenkins_home: /data/jenkins
+    jenkins_config_owner: "root"
+    jenkins_config_group: "root"
+    jenkins_docker_container_name: jenkinsblue
+    jenkins_docker_image: jenkinsci/blueocean
+    jenkins_java_opts: "-Djenkins.install.runSetupWizard=false"
+    ansible_python_interpreter: /usr/bin/python3
+    jenkins_hostname: "127.0.0.1"
+    jenkins_port: 8080
+    jenkins_install_via: "docker"
+    jenkins_plugins:
+      - git
+      - blueocean
+      - h2-api
+      - config-file-provider
+      - pipeline-maven

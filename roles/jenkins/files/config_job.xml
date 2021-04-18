@@ -1,0 +1,28 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.40">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.90">
+    <script>library identifier: &apos;jenkins-shared-libray@master&apos;,
+    retriever: modernSCM([
+      $class: &apos;GitSCMSource&apos;,
+      credentialsId: &apos;&apos;,
+      remote: &apos;https://github.com/christianvch/prueba.git&apos;
+])
+
+node {
+    env.MAVEN_HOME = &quot;${tool &apos;mvn&apos;}&quot;
+    env.PATH = &quot;${env.MAVEN_HOME}/bin:${env.PATH}&quot;
+    buildJavascriptApp deploy: true, {
+        notify type: &quot;slack&quot;, message: &quot;Build succeeded&quot;
+    }
+
+}
+</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

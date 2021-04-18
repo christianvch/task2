@@ -1,0 +1,89 @@
+  - name: "Creando directorio jenkins"
+    file:
+      path: "{{ jenkins_home }}"
+      mode: 0777
+      owner: "{{ jenkins_config_owner }}"
+      group: "{{ jenkins_config_group }}"
+      state: directory
+
+  - name: "Desplesgando container Jenkins"
+    docker_container:
+      name: "{{ jenkins_docker_container_name }}"
+      image: "{{ jenkins_docker_image }}"
+      published_ports:
+      - "{{ jenkins_port }}:8080"
+      volumes:
+      - "{{ jenkins_home }}:/var/jenkins_home"
+      env:
+        JAVA_OPTS: "{{ jenkins_java_opts }}"
+    register: container_result
+
+  - name: "Esperar 60s hasta que levante el container"
+    pause:
+      seconds: 60
+
+  - name: "Fact URL jenkins"
+    set_fact:
+      jenkins_url: "http://{{ jenkins_hostname }}:{{ jenkins_port }}"
+
+
+  - name: "Instalar plugins jenkins"
+    jenkins_plugin:
+      name: "{{ item }}"
+      jenkins_home: "{{ jenkins_home }}"
+      owner: "{{ jenkins_config_owner }}"
+      group: "{{ jenkins_config_group }}"
+      url: "{{ jenkins_url }}"
+      timeout: 100
+      validate_certs: false
+    with_items: "{{ jenkins_plugins }}"
+
+  - name: "Esperando a que terminen de instalar los plugins"
+    wait_for:
+      path: "{{ jenkins_home }}/plugins/{{ item }}.jpi"
+    with_items: "{{ jenkins_plugins }}"
+
+
+  - name: "Copiar archivos de .xml"
+    copy:
+      src: "{{ item }}"
+      dest: "/data/jenkins/"
+      owner: "{{ jenkins_config_owner }}"
+      group: "{{ jenkins_config_group }}"
+      remote_src: True
+      mode: 0777
+    with_items:
+      - roles/jenkins/files/config.xml
+      - roles/jenkins/files/hudson.tasks.Maven.xml
+
+  - name: "Copiar archivos de .xml"
+    copy:
+      src: "{{ item }}"
+      dest: "/data/jenkins/users/"
+      owner: "{{ jenkins_config_owner }}"
+      group: "{{ jenkins_config_group }}"
+      remote_src: True
+      mode: 0777
+    with_items:
+      - roles/jenkins/files/jenkins/users/
+
+  - name: "Reiniciamos el contenedor a container"
+    docker_container:
+      name: "{{jenkins_docker_container_name}}"
+      state: started
+      restart: yes
+
+  - name: "Espera que el contenedor inicie"
+    pause:
+      seconds: 60
+
+  - shell: sh roles/jenkins/files/create_user_jenkinscli.sh
+
+  - jenkins_job:
+      config: "{{ lookup('file', 'config_job.xml') }}"
+      name: test-sharedlib
+      password: password123
+      url: "{{ jenkins_url }}"
+      user: user1
+    vars:
+      ansible_python_interpreter: /usr/bin/python2.7
