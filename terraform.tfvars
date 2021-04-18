@@ -1,0 +1,7 @@
+project_name         = "static-road-310823"
+gcp_credentials_path  = "/root/task1/static-road-310823-8c830c80bbd6.json"
+region               = "us-central1"
+zone                 = "us-central1-a"
+ssh_username         = "promisepreston"
+ssh_pub_key_path     = "/root/.ssh/kubernetes-trial.pub"
+ssh_priv_key_path     = "/root/.ssh/kubernetes-trial"
